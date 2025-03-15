@@ -1,13 +1,25 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DESUtil } from '../utils/crypto'
+import type { ThemeConfig } from '../types/theme'
 
 // 数据模型
 const form = ref({
   plaintext: '',
   key: '',
   ciphertext: ''
+})
+
+const themeConfig = inject<ThemeConfig>('theme', {
+  name: '默认主题',
+  primary: '#409EFF',
+  secondary: '#f4f4f5',
+  background: '#ffffff',
+  text: '#213547',
+  buttonStyle: 'default',
+  menuBackground: '#f4f4f5',
+  cardBackground: '#ffffff'
 })
 
 // 组件挂载时记录日志
@@ -89,10 +101,14 @@ const resetForm = () => {
   <div class="page-container">
     <h2>DES加密与解密</h2>
     
-    <el-card class="crypto-card">
+    <el-card class="crypto-card" :style="{ backgroundColor: themeConfig.cardBackground }">
       <el-form label-position="top">
         <el-form-item label="密钥 (至少8位)">
-          <el-input v-model="form.key" placeholder="请输入DES密钥，至少8个字符" />
+          <el-input 
+            v-model="form.key" 
+            placeholder="请输入DES密钥，至少8个字符"
+            :style="{ borderColor: themeConfig.primary }" 
+          />
         </el-form-item>
         
         <el-divider />
@@ -105,16 +121,27 @@ const resetForm = () => {
                 type="textarea"
                 :rows="5"
                 placeholder="请输入要加密的明文"
+                :style="{ borderColor: themeConfig.primary }"
               />
             </el-form-item>
           </div>
           
           <div class="arrow-container">
-            <el-button type="primary" circle @click="handleEncrypt">
+            <el-button 
+              type="primary" 
+              circle 
+              @click="handleEncrypt"
+              class="theme-button"
+            >
               <el-icon><ArrowRight /></el-icon>
             </el-button>
             <div class="arrow-spacer"></div>
-            <el-button type="success" circle @click="handleDecrypt">
+            <el-button 
+              type="success" 
+              circle 
+              @click="handleDecrypt"
+              class="theme-button"
+            >
               <el-icon><ArrowLeft /></el-icon>
             </el-button>
           </div>
@@ -126,13 +153,18 @@ const resetForm = () => {
                 type="textarea"
                 :rows="5"
                 placeholder="加密后的密文"
+                :style="{ borderColor: themeConfig.primary }"
               />
             </el-form-item>
           </div>
         </div>
         
         <div class="button-container">
-          <el-button type="info" @click="resetForm">重置</el-button>
+          <el-button 
+            type="info" 
+            @click="resetForm"
+            class="theme-button"
+          >重置</el-button>
         </div>
       </el-form>
     </el-card>
@@ -142,10 +174,13 @@ const resetForm = () => {
 <style scoped>
 .page-container {
   padding: 20px;
+  background-color: v-bind('themeConfig.background');
+  min-height: 100%;
 }
 
 .crypto-card {
   margin-top: 20px;
+  transition: background-color 0.3s;
 }
 
 .input-output-container {
@@ -174,5 +209,14 @@ const resetForm = () => {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+/* 主题按钮样式 */
+.theme-button {
+  transition: all 0.3s ease;
+}
+
+.theme-button:hover {
+  transform: scale(1.05);
 }
 </style>

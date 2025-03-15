@@ -3,6 +3,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { themes } from './utils/themes'
 import './style.css'
 import App from './App.vue'
 import routes from './router'
@@ -19,6 +20,9 @@ const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
+
+// 提供全局主题配置
+app.provide('theme', themes.default)
 
 // 使用Element Plus和Vue Router
 app.use(ElementPlus)

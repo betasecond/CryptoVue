@@ -1,13 +1,25 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject } from 'vue'
 import { ElMessage } from 'element-plus'
 import { RC4Util } from '../utils/crypto'
+import type { ThemeConfig } from '../types/theme'
 
 // 数据模型
 const form = ref({
   plaintext: '',
   key: '',
   ciphertext: ''
+})
+
+const themeConfig = inject<ThemeConfig>('theme', {
+  name: '默认主题',
+  primary: '#409EFF',
+  secondary: '#f4f4f5',
+  background: '#ffffff',
+  text: '#213547',
+  buttonStyle: 'default',
+  menuBackground: '#f4f4f5',
+  cardBackground: '#ffffff'
 })
 
 // 组件挂载时记录日志
@@ -103,13 +115,21 @@ const resetForm = () => {
   <div class="page-container">
     <h2>RC4加密与解密</h2>
     
-    <el-card class="crypto-card">
+    <el-card class="crypto-card" :style="{ backgroundColor: themeConfig.cardBackground }">
       <el-form label-position="top">
         <div class="key-row">
           <el-form-item label="密钥" class="key-item">
-            <el-input v-model="form.key" placeholder="请输入RC4密钥" />
+            <el-input 
+              v-model="form.key" 
+              placeholder="请输入RC4密钥" 
+              :style="{ borderColor: themeConfig.primary }"
+            />
           </el-form-item>
-          <el-button type="primary" @click="generateRandomKey">生成随机密钥</el-button>
+          <el-button 
+            type="primary" 
+            @click="generateRandomKey"
+            class="theme-button"
+          >生成随机密钥</el-button>
         </div>
         
         <el-divider />
@@ -122,16 +142,27 @@ const resetForm = () => {
                 type="textarea"
                 :rows="5"
                 placeholder="请输入要加密的明文"
+                :style="{ borderColor: themeConfig.primary }"
               />
             </el-form-item>
           </div>
           
           <div class="arrow-container">
-            <el-button type="primary" circle @click="handleEncrypt">
+            <el-button 
+              type="primary" 
+              circle 
+              @click="handleEncrypt"
+              class="theme-button"
+            >
               <el-icon><ArrowRight /></el-icon>
             </el-button>
             <div class="arrow-spacer"></div>
-            <el-button type="success" circle @click="handleDecrypt">
+            <el-button 
+              type="success" 
+              circle 
+              @click="handleDecrypt"
+              class="theme-button"
+            >
               <el-icon><ArrowLeft /></el-icon>
             </el-button>
           </div>
@@ -143,18 +174,23 @@ const resetForm = () => {
                 type="textarea"
                 :rows="5"
                 placeholder="加密后的密文"
+                :style="{ borderColor: themeConfig.primary }"
               />
             </el-form-item>
           </div>
         </div>
         
         <div class="button-container">
-          <el-button type="info" @click="resetForm">重置</el-button>
+          <el-button 
+            type="info" 
+            @click="resetForm"
+            class="theme-button"
+          >重置</el-button>
         </div>
       </el-form>
     </el-card>
 
-    <el-card class="crypto-desc">
+    <el-card class="crypto-desc" :style="{ backgroundColor: themeConfig.cardBackground }">
       <h3>RC4算法简介</h3>
       <p>
         RC4（Rivest Cipher 4）是一种流加密算法，由Ronald Rivest在1987年设计。它生成一个伪随机的密钥流（keystream），
@@ -171,10 +207,13 @@ const resetForm = () => {
 <style scoped>
 .page-container {
   padding: 20px;
+  background-color: v-bind('themeConfig.background');
+  min-height: 100%;
 }
 
 .crypto-card, .crypto-desc {
   margin-top: 20px;
+  transition: background-color 0.3s;
 }
 
 .key-row {
@@ -221,5 +260,14 @@ const resetForm = () => {
 
 h3 {
   margin-top: 0;
+}
+
+/* 主题按钮样式 */
+.theme-button {
+  transition: all 0.3s ease;
+}
+
+.theme-button:hover {
+  transform: scale(1.05);
 }
 </style>
