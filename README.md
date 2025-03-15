@@ -1,80 +1,138 @@
-# Vue 3 + TypeScript + Vite Cryptography Tool
+# Vue 3 + TypeScript + Vite 密码学工具
+计算机信息安全技术 2025 课程项目 集美大学
+[English](README_en.md) |  [中文](README_zh.md)
 
-This project implements various cryptographic algorithms (DES, RSA, RC4) in a user-friendly web interface built with Vue 3, TypeScript, and Vite.
+本项目使用 Vue 3、TypeScript 和 Vite 构建，实现了多种密码学算法（DES、RSA、RC4）的用户友好 Web 界面。
 
-## Project Overview
+## 项目概述
 
-This application provides encryption and decryption capabilities using three different cryptographic algorithms:
+该应用程序提供了三种不同密码学算法的加密和解密功能：
 
-- **DES (Data Encryption Standard)**: A symmetric key algorithm for fast encryption of data
-- **RSA (Rivest–Shamir–Adleman)**: An asymmetric cryptography algorithm that uses key pairs
-- **RC4**: A stream cipher symmetric key algorithm
+- **DES（数据加密标准）**：一种对称密钥算法，用于快速数据加密
+- **RSA（Rivest–Shamir–Adleman）**：一种使用密钥对的非对称加密算法
+- **RC4**：一种流密码对称密钥算法
 
-## Technology Stack
+## 技术栈
 
 - Vue 3 with Composition API
 - TypeScript
 - Vite
-- Element Plus UI library
-- crypto-js for DES and RC4 implementation
-- jsencrypt for RSA implementation
+- Element Plus UI 组件库
+- crypto-js 用于 DES 和 RC4 实现
+- jsencrypt 用于 RSA 实现
 
-## Features
+## 功能特性
 
-- DES encryption/decryption with customizable keys
-- RSA key pair generation and asymmetric encryption/decryption
-- RC4 stream cipher implementation
-- User-friendly interface for all cryptographic operations
+- DES 加密/解密，支持自定义密钥
+- RSA 密钥对生成和非对称加密/解密
+- RC4 流密码实现
+- 所有密码学操作的用户友好界面
+- **主题自定义**：支持个性化界面颜色方案，增强用户体验
 
-## Installation and Setup
+## 安装和设置
 
-1. Clone the repository
-2. Install dependencies:
+1. 克隆代码库
+2. 安装依赖：
    ```
    npm install
    ```
-3. Run the development server:
+3. 运行开发服务器：
    ```
    npm run dev
    ```
-4. Build for production:
+4. 构建生产版本：
    ```
    npm run build
    ```
 
-## Usage Instructions
+## 使用说明
 
-### DES Encryption/Decryption
-- Enter your plaintext and key
-- Click the right arrow to encrypt
-- Click the left arrow to decrypt
-- View results instantly
+### 主题设置
+- 可以自定义应用的主色调和背景色
+- 界面元素会根据所选主题动态调整
+- 按钮和交互元素具有平滑的过渡动画效果
 
-### RSA Encryption/Decryption
-- Generate a new key pair using the "生成新的密钥对" button
-- Enter plaintext to encrypt
-- Use the right arrow to encrypt with the public key
-- Use the left arrow to decrypt with the private key
+### DES 加密/解密
+- 输入明文和密钥
+- 点击右箭头进行加密
+- 点击左箭头进行解密
+- 即时查看结果
 
-### RC4 Encryption/Decryption
-- Enter your plaintext and key
-- Encrypt and decrypt using the interface buttons
-- Compare results with other algorithms
+### RSA 加密/解密
+- 使用"生成新的密钥对"按钮生成密钥对
+- 输入要加密的明文
+- 使用右箭头用公钥进行加密
+- 使用左箭头用私钥进行解密
 
-## Implementation Notes
+### RC4 加密/解密
+- 输入明文和密钥
+- 使用界面按钮进行加密和解密
+- 与其他算法比较结果
 
-This project implements all cryptographic algorithms from scratch instead of using example programs due to environment constraints. The implementations demonstrate:
+## 实现说明
 
-- The speed difference between symmetric (DES, RC4) and asymmetric (RSA) encryption
-- Security differences between the algorithms
-- Practical application of cryptographic principles
+由于环境限制，本项目从头实现了所有密码学算法，而不是使用示例程序。这些实现展示了：
 
-DES is faster for large-scale data encryption compared to RSA, but RSA offers better security due to its asymmetric nature.
+- 对称加密（DES、RC4）与非对称加密（RSA）之间的速度差异
+- 各算法之间的安全性差异
+- 密码学原理的实际应用
 
-## Original Requirements
+对于大规模数据加密，DES 比 RSA 更快，但由于 RSA 的非对称特性，它提供了更好的安全性。
 
-1. Download and execute the DES example program, input plaintext, key, and ciphertext for encryption and decryption. Observe the results with different keys and improve the code.
-2. Download and execute the RSA example program. Generate random numbers, find prime numbers, and form key pairs to implement encryption and decryption. Compare symmetric and asymmetric encryption regarding keys and security. Modify and improve the RSA source program.
-3. Design an interface based on the RC4 reference code to encrypt and decrypt plaintext using the RC4 algorithm.
+## 原始需求
 
-All three requirements have been fulfilled in this implementation.
+1. 下载并执行 DES 示例程序，输入明文、密钥和密文进行加密和解密。观察不同密钥的结果并改进代码。
+2. 下载并执行 RSA 示例程序。生成随机数，寻找质数，并形成密钥对来实现加密和解密。比较对称和非对称加密在密钥和安全性方面的差异。修改和改进 RSA 源程序。
+3. 基于 RC4 参考代码设计界面，使用 RC4 算法加密和解密明文。
+
+所有三个需求都已在此实现中得到满足。
+
+## 测试示例
+
+### DES 加密/解密示例
+
+1. **基本测试**：
+   - 明文：`Hello, World!`
+   - 密钥：`12345678`（DES 密钥应为 8 字符）
+   - 预期结果：加密后再解密应得到原始明文
+
+2. **中文测试**：
+   - 明文：`你好，世界！`
+   - 密钥：`密码学课`
+   - 注意：加密结果为 Base64 编码形式
+
+3. **长文本测试**：
+   - 明文：`这是一段较长的文本，用于测试 DES 加密算法在处理长文本时的性能和结果。密码学是计算机科学与数学的交叉学科，在信息安全领域有着重要应用。`
+   - 密钥：`测试密钥`
+
+### RSA 加密/解密示例
+
+1. **短文本测试**：
+   - 首先生成密钥对
+   - 明文：`RSA 加密测试`
+   - 注意：RSA 不适合加密长文本，单次加密明文长度有限
+
+2. **英文文本**：
+   - 明文：`Cryptography is essential for secure communications`
+   - 加密使用公钥，解密使用私钥
+
+3. **数字和特殊字符**：
+   - 明文：`Test@123!#$%`
+   - 观察特殊字符的加解密效果
+
+### RC4 加密/解密示例
+
+1. **简单测试**：
+   - 明文：`RC4 stream cipher test`
+   - 密钥：`secretkey`
+   - RC4 作为流密码，加密速度较快
+
+2. **长密钥测试**：
+   - 明文：`使用较长的密钥进行 RC4 加密测试`
+   - 密钥：`这是一个比较长的密钥用来测试RC4算法的密钥长度灵活性`
+
+3. **二进制数据测试**：
+   - 可以尝试加密一些特殊字符组合
+   - 密钥：`binary@key#123`
+   - 观察 RC4 处理不同字符集的能力
+
